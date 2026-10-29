@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Promo lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>html, body { margin: 0; background: #000; color: #ccc; font: 14px sans-serif; } canvas { width: 960px; display: block; }</style>
+</head>
+<body>
+<!-- Dev-only: the launch film for Klix, one look (the site's own), cut to the score. Not part of the build. -->
+<canvas id="c"></canvas>
+<p id="log">loading</p>
+<script type="module">
+  import { Muxer, ArrayBufferTarget } from 'mp4-muxer';
+  import { prismFrame } from './src/prism.ts';
+  import { renderPlan } from './src/music.ts';
+  import { videoCodec } from './src/encode.ts';
+
+  const q = new URLSearchParams(location.search);
+  const log = (s) => (document.getElementById('log').textContent = s);
+  const W = 1920, H = 1080, FPS = 60;
+  const B = 60 / 124;
+  const END = 60 * B;
+  const SERIF = '"Instrument Serif"', SANS = 'Geist', MONO = '"Geist Mono"';
+  const PRISM = ['#ffd0b4', '#f8c4dc', '#d8c6ff'];
+
+  await Promise.all([`400 120px ${SERIF}`, `300 120px ${SANS}`, `400 40px ${SANS}`, `400 30px ${MONO}`].map((f) => document.fonts.load(f)));
+  const img = (src) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = src; });
+  const [studio, styles] = await Promise.all([img('/promo-assets/studio.jpg'), img('/promo-assets/styles.jpg')]);
+
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+  const smooth = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
+  const k = (t, t0, d) => ease((t - t0) / d);
+
+  // The site's ground: near black, a warm pool of light, a faint dot grid.
+  function ground(ctx, t, glow = 1) {
+    ctx.fillStyle = '#050404';
+    ctx.fillRect(0, 0, W, H);
+    const g = ctx.createRadialGradient(W / 2, H * 0.48, 0, W / 2, H * 0.48, 760);
+    g.addColorStop(0, `rgba(120, 72, 70, ${0.34 * glow})`);
+    g.addColorStop(0.55, `rgba(60, 34, 38, ${0.14 * glow})`);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(246, 239, 231, 0.07)';
+    const off = (t * 6) % 32;
+    for (let y = -32 + off; y < H; y += 32) for (let x = 16; x < W; x += 32) { ctx.beginPath(); ctx.arc(x, y, 1.3, 0, Math.PI * 2); ctx.fill(); }
+  }
+
+  // Text that rises into focus. a: 0..1 reveal, out: 0..1 exit.
+  function text(ctx, s, x, y, o) {
+    const { size, face = 'serif', a = 1, out = 0, pearl = false, color = '#f6efe7', spacing = 0, italic = false, weight = 400 } = o;
+    const alpha = a * (1 - out);
+    if (alpha <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    const fam = face === 'serif' ? SERIF : face === 'mono' ? MONO : SANS;
+    ctx.font = `${italic ? 'italic ' : ''}${weight} ${size}px ${fam}`;
+    ctx.letterSpacing = `${spacing}em`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    const blur = (1 - a) * 16 + out * 10;
+    if (blur > 0.3) ctx.filter = `blur(${blur.toFixed(1)}px)`;
+    const dy = (1 - a) * size * 0.28 - out * size * 0.12;
+    if (pearl) {
+      const w = ctx.measureText(s).width;
+      const g = ctx.createLinearGradient(x - w / 2, y - size, x + w / 2, y + size * 0.3);
+      [['#fbf1e2', 0], ['#ffd0b4', 0.28], ['#f8c4dc', 0.52], ['#d8c6ff', 0.74], ['#fbf1e2', 1]].forEach(([c, p]) => g.addColorStop(p, c));
+      ctx.fillStyle = g;
+    } else ctx.fillStyle = color;
+    ctx.fillText(s, x + (spacing ? (size * spacing) / 2 : 0), y + dy);
+    ctx.restore();
+  }
+
+  function prism(ctx, t, cx, cy, size, alpha = 1, spin = 0) {
+    if (alpha <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, size * 0.9);
+    g.addColorStop(0, 'rgba(255, 200, 190, 0.16)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(cx - size, cy - size, size * 2, size * 2);
+    const f = prismFrame(size, t, PRISM, spin);
+    if (f) ctx.drawImage(f, cx - size / 2, cy - size / 2, size, size);
+    ctx.restore();
+  }
+
+  // A screenshot in a floating window. sx, sy, sw, sh crop the source.
+  function windowShot(ctx, im, [sx, sy, sw, sh], x, y, w, alpha = 1) {
+    const h = (w * sh) / sw;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.shadowColor = 'rgba(0,0,0,0.8)';
+    ctx.shadowBlur = 80;
+    ctx.shadowOffsetY = 40;
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, 26);
+    ctx.fillStyle = '#0b0909';
+    ctx.fill();
+    ctx.shadowColor = 'transparent';
+    ctx.clip();
+    ctx.drawImage(im, sx, sy, sw, sh, x, y, w, h);
+    ctx.restore();
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.roundRect(x + 0.5, y + 0.5, w - 1, h - 1, 26);
+    ctx.strokeStyle = 'rgba(246, 239, 231, 0.14)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function fadeBottom(ctx, from) {
+    const g = ctx.createLinearGradient(0, from, 0, H);
+    g.addColorStop(0, 'rgba(5,4,4,0)');
+    g.addColorStop(1, 'rgba(5,4,4,1)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, from, W, H - from);
+  }
+
+  function flash(ctx, t, at, peak = 0.55) {
+    const p = (t - at) / 0.45;
+    if (p < 0 || p > 1) return;
+    ctx.fillStyle = `rgba(255, 236, 226, ${peak * Math.pow(1 - p, 2)})`;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  const cx = W / 2;
+  function draw(ctx, t) {
+    const b = t / B;
+    ctx.save();
+    if (b < 12) {
+      // Open: the line, slowly. Then the prism comes out of the dark.
+      ground(ctx, t, 0.4 + 0.6 * smooth(b / 12));
+      const out = k(t, 7.2 * B, 0.6 * B);
+      text(ctx, 'Every launch', cx, 500, { size: 150, pearl: true, a: k(t, 0.3, 1.1), out });
+      text(ctx, 'deserves a trailer.', cx, 660, { size: 150, pearl: true, a: k(t, 1.5, 1.1), out });
+      const p = smooth((b - 8) / 4);
+      prism(ctx, t, cx, 470, 260 + 120 * p, p, 0.4 * (1 - p));
+    } else if (b < 16) {
+      // Drop: the name.
+      ground(ctx, t, 1);
+      const push = 1 + 0.03 * smooth((b - 12) / 4);
+      ctx.translate(cx, H / 2); ctx.scale(push, push); ctx.translate(-cx, -H / 2);
+      prism(ctx, t, cx, 400, 380, 1, 0.25 * Math.sin(t * 0.8));
+      text(ctx, 'KLIX', cx, 760, { size: 170, face: 'sans', weight: 300, spacing: 0.32, pearl: true, a: k(t, 12 * B, 0.35) });
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      flash(ctx, t, 12 * B);
+    } else if (b < 24) {
+      // Four lines on the beat.
+      ground(ctx, t, 0.85);
+      const lines = ['Paste a repo.', 'Or a website.', 'Claude directs the cut.', 'Your browser renders it.'];
+      const i = Math.floor((b - 16) / 2);
+      text(ctx, String(i + 1).padStart(2, '0') + ' / 04', cx, 400, { size: 26, face: 'mono', color: 'rgba(246,239,231,0.5)', spacing: 0.2, a: k(t, (16 + i * 2) * B, 0.2) });
+      text(ctx, lines[i], cx, 600, { size: 168, pearl: true, a: k(t, (16 + i * 2) * B, 0.22) });
+    } else if (b < 36) {
+      // The Studio, slowly.
+      ground(ctx, t, 0.7);
+      const p = smooth((b - 24) / 12);
+      text(ctx, 'Paste a link. It reads your colours and fonts.', cx, 150, { size: 64, a: k(t, 24 * B, 0.6) });
+      const z = 1 + 0.18 * p;
+      ctx.translate(cx, 640); ctx.scale(z, z); ctx.translate(-cx - 120 * p, -640 + 40 * p);
+      windowShot(ctx, studio, [280, 180, 2320, 1620], 230, 220 + 60 * (1 - k(t, 24 * B, 0.9)), 1460, k(t, 24 * B, 0.7));
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      fadeBottom(ctx, 820);
+    } else if (b < 44) {
+      // Build: the style wall runs past, then three facts on the beat.
+      ground(ctx, t, 0.9);
+      if (b < 40) {
+        const p = (b - 36) / 4;
+        ctx.save();
+        ctx.beginPath(); ctx.rect(0, 290, W, H - 290); ctx.clip();
+        windowShot(ctx, styles, [280, 560, 2320, 1240], 300, 360 - 110 * p, 1320, 1);
+        const top = ctx.createLinearGradient(0, 290, 0, 420);
+        top.addColorStop(0, 'rgba(5,4,4,1)'); top.addColorStop(1, 'rgba(5,4,4,0)');
+        ctx.fillStyle = top; ctx.fillRect(0, 290, W, 130);
+        ctx.restore();
+        fadeBottom(ctx, 700);
+        text(ctx, 'Sixteen styles.', cx, 200, { size: 110, pearl: true, a: k(t, 36 * B, 0.25) });
+      } else {
+        const facts = [[40, 'Its own score.'], [41, '60 to 120 fps.'], [42, 'Ready for X.']];
+        const [at, s] = [...facts].reverse().find(([x]) => b >= x);
+        text(ctx, s, cx, 600, { size: 180, pearl: true, a: k(t, at * B, 0.18) });
+      }
+    } else {
+      // Close: the address.
+      ground(ctx, t, 1);
+      prism(ctx, t, cx, 360, 300, k(t, 44 * B, 0.5), 0.3 * Math.sin(t * 0.6));
+      text(ctx, 'klixstudio.com', cx, 690, { size: 164, pearl: true, a: k(t, 44 * B, 0.4) });
+      text(ctx, 'Paste a GitHub repo or a website. Get a launch video.', cx, 790, { size: 38, face: 'sans', color: 'rgba(246,239,231,0.74)', a: k(t, 45 * B, 0.6) });
+      text(ctx, '@useklix', cx, 990, { size: 24, face: 'mono', color: 'rgba(246,239,231,0.45)', spacing: 0.16, a: k(t, 47 * B, 0.6) });
+      flash(ctx, t, 44 * B, 0.45);
+      const fade = clamp((t - (END - 0.8)) / 0.8);
+      if (fade > 0) { ctx.fillStyle = `rgba(0,0,0,${fade})`; ctx.fillRect(0, 0, W, H); }
+    }
+    ctx.restore();
+  }
+
+  const plan = { full: [[12 * B, 24 * B], [36 * B, 52 * B]], drops: [12 * B, 44 * B], ring: 52 * B };
+  const canvas = document.getElementById('c');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  window.promo = { total: END, snap: (t) => { draw(ctx, t); return canvas.toDataURL('image/jpeg', 0.8); } };
+  if (q.get('export') === null) { draw(ctx, Number(q.get('t') ?? 1)); log(`ready, ${END.toFixed(2)} s`); }
+  else {
+    const codec = await videoCodec(W, H, FPS);
+    const music = await renderPlan('drive', END, 0.8, plan);
+    const AAC = { codec: 'mp4a.40.2', sampleRate: 44100, numberOfChannels: 2, bitrate: 192_000 };
+    const target = new ArrayBufferTarget();
+    const muxer = new Muxer({ target, video: { codec: 'avc', width: W, height: H, frameRate: FPS }, audio: { codec: 'aac', numberOfChannels: 2, sampleRate: 44100 }, fastStart: 'in-memory', firstTimestampBehavior: 'offset' });
+    const venc = new VideoEncoder({ output: (c, m) => muxer.addVideoChunk(c, m), error: (e) => log('video ' + e) });
+    venc.configure({ codec, width: W, height: H, bitrate: 14e6, framerate: FPS, latencyMode: 'quality', avc: { format: 'avc' } });
+    const frames = Math.round(END * FPS);
+    for (let i = 0; i < frames; i++) {
+      draw(ctx, i / FPS);
+      const f = new VideoFrame(canvas, { timestamp: Math.round((i * 1e6) / FPS), duration: Math.round(1e6 / FPS) });
+      venc.encode(f, { keyFrame: i % (FPS * 2) === 0 });
+      f.close();
+      while (venc.encodeQueueSize > 6) await new Promise((r) => setTimeout(r, 2));
+      if (i % 30 === 0) { log(`frame ${i} / ${frames}`); await new Promise((r) => setTimeout(r, 0)); }
+    }
+    await venc.flush();
+    const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, m), error: (e) => log('audio ' + e) });
+    aenc.configure(AAC);
+    const len = Math.min(music.length, Math.ceil(END * 44100));
+    const L = music.getChannelData(0), R = music.getChannelData(1);
+    for (let off = 0; off < len; off += 4096) {
+      const n = Math.min(4096, len - off);
+      const d = new Float32Array(n * 2);
+      d.set(L.subarray(off, off + n), 0);
+      d.set(R.subarray(off, off + n), n);
+      const ad = new AudioData({ format: 'f32-planar', sampleRate: 44100, numberOfFrames: n, numberOfChannels: 2, timestamp: Math.round((off * 1e6) / 44100), data: d });
+      aenc.encode(ad);
+      ad.close();
+    }
+    await aenc.flush();
+    muxer.finalize();
+    window.promo.mp4 = URL.createObjectURL(new Blob([target.buffer], { type: 'video/mp4' }));
+    log('done');
+  }
+</script>
+</body>
+</html>

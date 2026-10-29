@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+data/
+.dev.vars
+.wrangler
+# Launch assets and reference recordings stay local.
+launch/
+tix-ui.mp4

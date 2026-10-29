@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Klix · Every launch deserves a trailer</title>
+  <meta name="description" content="Paste a GitHub repo or a website. Klix reads it, Claude writes and directs the cut, and your browser renders a launch video with music, in sixteen styles, up to 4K at 120 fps." />
+  <meta property="og:title" content="Klix · Every launch deserves a trailer" />
+  <meta property="og:description" content="Paste a GitHub repo or a website, get a launch video for X." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://klixstudio.com/" />
+  <meta property="og:image" content="https://klixstudio.com/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Klix · Every launch deserves a trailer" />
+  <meta name="twitter:description" content="Paste a GitHub repo or a website, get a launch video for X." />
+  <meta name="twitter:image" content="https://klixstudio.com/og.jpg" />
+  <link rel="canonical" href="https://klixstudio.com/" />
+  <meta name="theme-color" content="#050404" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./src/theme.css" />
+  <link rel="stylesheet" href="./src/landing.css" />
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="wrap nav-in">
+      <nav class="nav-left">
+        <button class="nav-link" data-go="how">How it works</button>
+        <button class="nav-link" data-go="styles">Styles</button>
+        <button class="nav-link" data-go="websites">Websites</button>
+        <button class="nav-link" data-go="why">Why Klix</button>
+        <button class="nav-link" data-go="faq">FAQ</button>
+      </nav>
+      <a class="logo" href="/" aria-label="Klix home"><span class="logo-mark"></span>Klix</a>
+      <div class="nav-right">
+        <a class="btn btn-glow" href="/make">Open Studio</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-light" aria-hidden="true"></div>
+      <canvas class="prism" id="prism" aria-hidden="true"></canvas>
+      <div class="wrap hero-in">
+        <p class="pill-note reveal"><span>New</span>Website mode and Describe, directed by Claude</p>
+        <h1 class="serif hero-title reveal"><span class="pearl">Every launch deserves</span><br /><span class="pearl">a trailer.</span></h1>
+        <p class="hero-sub reveal">Paste a GitHub repo or a website. Klix reads it, Claude writes and directs the cut, and your browser renders a launch video with its own score, ready for X.</p>
+        <form class="repo-field hero-form reveal" data-repo-form>
+          <input name="repo" placeholder="owner/repo  or  yoursite.com" autocomplete="off" spellcheck="false" aria-label="GitHub repo or website" />
+          <button class="btn btn-glow" type="submit"><span>Make the video</span><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </form>
+        <div class="hero-actions reveal">
+          <a class="chip-link" href="/make?mode=site"><i class="ic ic-globe"></i>Website mode</a>
+          <a class="chip-link" href="/make?focus=describe"><i class="ic ic-spark"></i>Describe your video</a>
+          <button class="chip-link" type="button" data-go="styles"><i class="ic ic-grid"></i>Browse 16 styles</button>
+        </div>
+        <p class="hero-notes reveal">No sign up <i></i> Music made for every cut <i></i> MP4 up to 4K, 120 fps</p>
+      </div>
+    </section>
+
+    <section class="sample wrap">
+      <p class="kicker reveal">The sample cut</p>
+      <h2 class="serif h2 reveal"><span class="pearl">Sixteen styles,</span><br /><span class="soft">sixteen real repos.</span></h2>
+      <figure class="monitor reveal" aria-label="Live preview of a Klix video">
+        <div class="monitor-top">
+          <span class="rec"><i></i>Live preview</span>
+          <span class="monitor-right"><span id="demo-name">Editorial</span><button class="sound-btn" id="demo-sound" type="button" aria-pressed="false"><i></i><i></i><i></i><span>Sound on</span></button></span>
+        </div>
+        <div class="monitor-screen"><canvas id="demo"></canvas></div>
+        <div class="monitor-foot">
+          <span class="monitor-bar"><span id="demo-bar"></span></span>
+          <span class="tc" id="demo-tc">00:00 / 00:25</span>
+        </div>
+      </figure>
+      <div class="style-rail reveal" id="demo-styles" role="radiogroup" aria-label="Preview style"></div>
+    </section>
+
+    <section class="issue wrap">
+      <div class="issue-copy">
+        <p class="kicker reveal">The real issue</p>
+        <h2 class="serif h2 reveal"><span class="pearl">You shipped.</span><br /><span class="pearl">Nobody saw it.</span></h2>
+        <p class="body reveal">A launch post lives for a few seconds in a feed. A link and a paragraph rarely survive the scroll, and cutting a proper video means screen recordings, captions, music and an editor you do not have time to learn.</p>
+        <p class="body reveal">Klix makes the video from what you already wrote: the repo or the site itself.</p>
+      </div>
+      <div class="issue-cards">
+        <article class="card stat dim reveal">
+          <div class="card-head"><span class="idx">A</span><span>Before</span><span class="tc">read time 0:00</span></div>
+          <p class="serif">A README</p>
+          <span>Read only by people who already clicked.</span>
+          <div class="ghost-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+        </article>
+        <article class="card stat dim reveal">
+          <div class="card-head"><span class="idx">B</span><span>Before</span><span class="tc">take 14</span></div>
+          <p class="serif">A screen recording</p>
+          <span>An afternoon of takes for one post.</span>
+          <div class="ghost-takes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="card stat hot reveal">
+          <div class="card-head"><span class="idx">C</span><span>With Klix</span><span class="dot"></span><span class="tc">00:25</span></div>
+          <p class="serif"><span class="pearl">A trailer</span></p>
+          <span>From the link you already have, with music, in the style you pick.</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="what" data-anchor="how">
+      <div class="wrap">
+        <p class="kicker center reveal">How it works</p>
+        <h2 class="serif h2 center reveal"><span class="pearl">Link in. Trailer out.</span></h2>
+      </div>
+      <div class="flow reveal" id="flow">
+        <canvas class="flow-lines" id="flow-lines" aria-hidden="true"></canvas>
+        <canvas class="flow-prism" id="flow-prism" aria-hidden="true"></canvas>
+      </div>
+      <div class="wrap">
+        <ol class="steps">
+          <li class="card step reveal">
+            <div class="card-head"><span class="idx">01</span><span>Paste</span></div>
+            <h3>A repo or a website</h3>
+            <p>Drop in <b>owner/repo</b> from GitHub, or any public site like <b>linear.app</b>. No sign up.</p>
+          </li>
+          <li class="card step reveal">
+            <div class="card-head"><span class="idx">02</span><span>Read</span></div>
+            <h3>Klix reads the source</h3>
+            <p>README, stars, languages and latest release from GitHub. For a site: its copy, headings, preview image, and the colours and fonts in its CSS.</p>
+          </li>
+          <li class="card step reveal">
+            <div class="card-head"><span class="idx">03</span><span>Write</span></div>
+            <h3>Claude writes the cut</h3>
+            <p>A hook, feature beats and a closing line, only from what the source says. For a website it also dresses the video in the site's own look.</p>
+          </li>
+          <li class="card step reveal">
+            <div class="card-head"><span class="idx">04</span><span>Direct</span></div>
+            <h3>Describe or fine tune</h3>
+            <p>Tell Claude the video you want in your own words, or set it yourself: style, palette, font, music, pacing, format, effects.</p>
+          </li>
+          <li class="card step reveal">
+            <div class="card-head"><span class="idx">05</span><span>Export</span></div>
+            <h3>Render and post</h3>
+            <p>Your browser renders every frame into an MP4 with sound, up to 4K at 120 fps. Share to X in one tap, or copy the post text.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="styles-sec wrap" data-anchor="styles">
+      <div class="sec-head">
+        <div>
+          <p class="kicker reveal">Sixteen styles</p>
+          <h2 class="serif h2 reveal"><span class="pearl">Pick how it moves.</span></h2>
+        </div>
+        <div class="sec-side">
+          <p class="body reveal">Each style sets its own type, motion, transitions, ground and music. Hover a frame to play it. Every one works with any palette, font and format.</p>
+          <a class="btn reveal" href="/make">Try them in the Studio</a>
+        </div>
+      </div>
+      <div class="style-grid" id="style-grid"></div>
+    </section>
+
+    <section class="sites-sec wrap" data-anchor="websites">
+      <div class="sec-head">
+        <div>
+          <p class="kicker reveal">Website mode</p>
+          <h2 class="serif h2 reveal"><span class="pearl">Your site.</span><br /><span class="soft">Your colours. Your fonts.</span></h2>
+        </div>
+        <div class="sec-side">
+          <p class="body reveal">Paste a website and Klix reads its copy and its CSS. Claude builds the video from the site's own background, text and brand colours, uses its typeface when it can, and turns the preview image into a product shot. Below: eight real sites, untouched.</p>
+          <a class="btn btn-glow reveal" href="/make?mode=site">Try website mode</a>
+        </div>
+      </div>
+      <div class="site-grid" id="site-grid"></div>
+      <p class="fine reveal" id="sites-note"></p>
+    </section>
+
+    <section class="describe-sec wrap">
+      <div class="describe-copy">
+        <p class="kicker reveal">Describe</p>
+        <h2 class="serif h2 reveal"><span class="pearl">Say it like a brief.</span><br /><span class="soft">Claude directs.</span></h2>
+        <p class="body reveal">Write the video you want the way you would brief an editor. Claude picks the style, palette, music, pacing, format and effects, and rewrites the words when you ask for a different tone. It keeps your website's colours unless you say otherwise.</p>
+        <a class="btn btn-glow reveal" href="/make?focus=describe">Describe your video</a>
+      </div>
+      <div class="card chat reveal">
+        <div class="card-head"><span class="idx">Describe</span><span>raycast.com</span><span class="dot"></span><span class="tc">real run</span></div>
+        <div class="bubble you"><small>You</small>Hype launch for Reels: vertical, fast cuts, loud music, make the words punchier</div>
+        <div class="bubble claude"><small>Claude</small>Set kinetic style, vertical format for Reels, fast cuts and the driving Drive track, kept your Raycast colours, and rewrote the script to hit harder.</div>
+        <div class="chat-set">
+          <span>Style <b>Kinetic</b></span><span>Format <b>9:16</b></span><span>Cut <b>Fast</b></span><span>Music <b>Drive</b></span><span>Palette <b>Raycast</b></span>
+        </div>
+        <div class="chat-diff">
+          <p><small>Hook before</small><s>Your shortcut to everything, one keystroke away</s></p>
+          <p><small>Hook after</small><b>Everything. One keystroke away.</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features wrap" data-anchor="features">
+      <p class="kicker center reveal">Features</p>
+      <h2 class="serif h2 center reveal"><span class="pearl">Built for the launch post.</span></h2>
+      <div class="bento">
+        <article class="card feat wide reveal">
+          <div class="card-head"><span class="idx">01</span><span>Describe</span><span class="dot"></span><span class="tc">claude</span></div>
+          <div class="feat-row">
+            <div class="feat-copy">
+              <h3>Direct it in a sentence</h3>
+              <p>Calm keynote, dark trailer, hype reel. Claude turns your words into every setting in the Studio.</p>
+            </div>
+            <div class="feat-vis vis-brief"><p id="vis-brief"></p><div class="brief-out" id="vis-brief-out"></div></div>
+          </div>
+        </article>
+        <article class="card feat reveal">
+          <div class="card-head"><span class="idx">02</span><span>Website</span></div>
+          <div class="feat-vis vis-site" id="vis-site"></div>
+          <h3>Wears your brand</h3>
+          <p>Colours and fonts read straight from your site's CSS.</p>
+        </article>
+        <article class="card feat reveal">
+          <div class="card-head"><span class="idx">03</span><span>Script</span></div>
+          <div class="feat-vis vis-script" id="vis-script">
+            <div class="sline"><b>Hook</b><span data-type></span></div>
+            <div class="sline"><b>Feature</b><span data-type></span></div>
+            <div class="sline"><b>Close</b><span data-type></span></div>
+          </div>
+          <h3>Words that hold up</h3>
+          <p>Only claims your README or site supports. No hashtags, no emoji.</p>
+        </article>
+        <article class="card feat wide reveal">
+          <div class="card-head"><span class="idx">04</span><span>Sound</span><span class="tc">7 tracks</span></div>
+          <div class="feat-row">
+            <div class="feat-copy">
+              <h3>A score for every cut</h3>
+              <p>House, synthwave, trailer, lo-fi and more, made in your browser in time with the edit: a build into the title, hits on every cut. Nothing to license.</p>
+            </div>
+            <div class="feat-vis vis-eq" aria-hidden="true"><div class="eq-bars" id="eq-bars"></div></div>
+          </div>
+        </article>
+        <article class="card feat wide reveal">
+          <div class="card-head"><span class="idx">05</span><span>Formats</span><span class="tc">720p to 4K</span></div>
+          <div class="feat-row">
+            <div class="feat-copy">
+              <h3>Every feed, one click</h3>
+              <p>Square for X, portrait for Instagram, vertical for Reels and Shorts, landscape for YouTube. The layout refits itself.</p>
+            </div>
+            <div class="feat-vis vis-formats" id="vis-formats"></div>
+          </div>
+        </article>
+        <article class="card feat reveal">
+          <div class="card-head"><span class="idx">06</span><span>Render</span><span class="tc">120 fps</span></div>
+          <div class="feat-vis vis-stack" id="vis-stack"></div>
+          <h3>Frame by frame</h3>
+          <p>Your browser draws and encodes every frame. No upload, no queue.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="control wrap">
+      <div class="sec-head">
+        <div>
+          <p class="kicker reveal">The studio</p>
+          <h2 class="serif h2 reveal"><span class="pearl">Every setting,</span><br /><span class="soft">before you export.</span></h2>
+        </div>
+        <div class="sec-side">
+          <p class="body reveal">Not just a link box. The Studio is a small editor: script, style, type, output, sound and effects, each on its own tab, with the preview updating as you go.</p>
+          <a class="btn reveal" href="/make">Open the Studio</a>
+        </div>
+      </div>
+      <div class="bento flip">
+        <article class="card ctl reveal">
+          <div class="card-head"><span class="idx">Type</span><span class="tc">8 faces + your site's</span></div>
+          <ul class="font-list" id="font-list"></ul>
+          <p>Any face with any style. Text size from 80 to 130 percent, left or centered, upper case or as written.</p>
+        </article>
+        <article class="card ctl wide reveal">
+          <div class="card-head"><span class="idx">Output</span><span class="tc">mp4 · h.264 · aac</span></div>
+          <div class="spec-grid">
+            <div><small>Resolution</small><b>720p · 1080p · 1440p · 4K</b></div>
+            <div><small>Frame rate</small><b>60 · 90 · 120 fps</b></div>
+            <div><small>Aspect</small><b>1:1 · 4:5 · 9:16 · 16:9</b></div>
+            <div><small>Cut</small><b>Fast · Balanced · Slow</b></div>
+            <div><small>Quality</small><b>Standard · High · Max</b></div>
+            <div><small>Length</small><b>About 20 to 30 seconds</b></div>
+          </div>
+        </article>
+        <article class="card ctl wide reveal">
+          <div class="card-head"><span class="idx">Motion</span><span class="tc">7 transitions</span></div>
+          <div class="chips">
+            <span>Cross fade</span><span>Dip to black</span><span>Color wipe</span><span>Push</span><span>Zoom through</span><span>Glitch</span><span>Hard cut</span>
+          </div>
+          <div class="chips soft-chips">
+            <span>3D glass prism</span><span>Camera push-in</span><span>Film grain</span><span>Vignette</span><span>Letterbox</span><span>Scene toggles</span>
+          </div>
+        </article>
+        <article class="card ctl reveal">
+          <div class="card-head"><span class="idx">Color</span><span class="tc">16 palettes</span></div>
+          <div class="pal-grid" id="pal-grid"></div>
+          <p>Or any accent colour, or your website's own palette.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="why wrap" data-anchor="why">
+      <div class="why-head">
+        <p class="kicker reveal">Why Klix exists</p>
+        <h2 class="serif h2 reveal"><span class="pearl">Make every launch as watchable</span><br /><span class="soft">as the work behind it.</span></h2>
+        <p class="body why-lead reveal">That is the whole mission. Klix is here so that the person who spent months building something does not lose its moment to a plain link nobody stops for.</p>
+      </div>
+
+      <div class="why-grid">
+        <article class="card why-card reveal">
+          <div class="card-head"><span class="idx">01</span><span>The problem</span></div>
+          <h3>Great work, invisible launch</h3>
+          <p>Most launches on X are a link and two lines of text. In a feed that moves this fast, that is easy to scroll past, no matter how good the product is.</p>
+        </article>
+        <article class="card why-card reveal">
+          <div class="card-head"><span class="idx">02</span><span>The gap</span></div>
+          <h3>Video is the format, but it is slow to make</h3>
+          <p>A proper launch video means a script, an editor, motion design and music. Big companies have a team for that. Solo builders and small teams usually do not have the hours.</p>
+        </article>
+        <article class="card why-card hot reveal">
+          <div class="card-head"><span class="idx">03</span><span>Our goal</span><span class="dot"></span></div>
+          <h3>A premiere in a minute, for anyone</h3>
+          <p>Paste the link you already have and get a trailer that looks and sounds like a studio made it, written from your own words, in your own colours.</p>
+        </article>
+      </div>
+
+      <div class="why-in card reveal">
+        <div class="card-head"><span class="idx">Story</span><span>Why we built it</span></div>
+        <div class="why-cols">
+          <p>We kept seeing the same thing: someone ships something careful and useful after months of work, then announces it with a link and two lines of text. It scrolls past in a second. The work was good; the launch was simply not built to be seen.</p>
+          <p>So we built the tool we wanted for our own releases. It reads what you already wrote, your README or your website, lets Claude write and direct the cut, and renders it on your own machine. No editor to learn, no stock footage, no music to license, and nothing made up along the way.</p>
+        </div>
+        <div class="why-split">
+          <div>
+            <p class="why-sub">Who it is for</p>
+            <ul class="who">
+              <li><b>Open source maintainers</b><span>announcing a release or a 1.0</span></li>
+              <li><b>Indie hackers and solo founders</b><span>launching on X, Product Hunt or Reels</span></li>
+              <li><b>Startups and small teams</b><span>shipping features faster than they can film them</span></li>
+              <li><b>Developer advocates</b><span>who need a clip for every update</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="why-sub">What we promise</p>
+            <ul class="why-points">
+              <li><b>Honest by design</b><span>Every line comes from your README or your site. Repo numbers are pulled from GitHub.</span></li>
+              <li><b>Yours to shape</b><span>Claude drafts and directs; you can change every word and every setting.</span></li>
+              <li><b>Made on your machine</b><span>Frames and music are rendered in your browser. Your video is never uploaded.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq wrap" data-anchor="faq">
+      <div class="faq-head">
+        <p class="kicker reveal">FAQ</p>
+        <h2 class="serif h2 reveal"><span class="pearl">Questions,</span><br /><span class="soft">answered.</span></h2>
+        <p class="body reveal">Something missing? Open the Studio and try it with the sample. It takes a minute.</p>
+        <a class="btn reveal" href="/make">Open the Studio</a>
+      </div>
+      <div class="faq-list">
+        <details class="qa reveal" open><summary>What can I make a video from?</summary><p>Any public GitHub repo, or any public website whose text is in the page. Sites that only show content after heavy JavaScript runs may not have enough text to read; Klix tells you when that happens.</p></details>
+        <details class="qa reveal"><summary>Does Claude make things up?</summary><p>It is told not to: lines come from your README or your site, and repo numbers come straight from GitHub. You can still edit every word before you export.</p></details>
+        <details class="qa reveal"><summary>How does website mode match my brand?</summary><p>Klix reads your site's CSS: colour tokens, the theme colour and the colours used most, plus the fonts. Claude picks the background, text and accent colours from those, and if your font is on Google Fonts the video uses it. Your preview image becomes the product shot.</p></details>
+        <details class="qa reveal"><summary>What does Describe do?</summary><p>You write the video you want in plain words. Claude sets the style, palette, font, music, pacing, format, frame rate and effects, and rewrites the script only when you ask for different words.</p></details>
+        <details class="qa reveal"><summary>Where does the music come from?</summary><p>It is not sampled from anyone. Each track is synthesized in your browser for your cut, so there is nothing to license.</p></details>
+        <details class="qa reveal"><summary>Which formats and sizes can I export?</summary><p>MP4 in square, portrait, vertical or landscape, from 720p up to 4K, at 60, 90 or 120 fps, with AAC sound. Chrome and Edge render frame by frame for exact frame rates.</p></details>
+        <details class="qa reveal"><summary>Do I need an account?</summary><p>No. Paste a link and go. There is a small daily limit on new scripts per visitor; anything already made loads again, and editing by hand is unlimited.</p></details>
+        <details class="qa reveal"><summary>Is there a watermark?</summary><p>Yes. Every video carries a small "made with klix" mark in a corner.</p></details>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="final-light" aria-hidden="true"></div>
+      <div class="wrap final-in">
+        <h2 class="serif final-title reveal"><span class="pearl">Ship it.</span><br /><span class="pearl">Then show it.</span></h2>
+        <p class="reveal">Your next release deserves more than a link.</p>
+        <form class="repo-field final-form reveal" data-repo-form>
+          <input name="repo" placeholder="owner/repo  or  yoursite.com" autocomplete="off" spellcheck="false" aria-label="GitHub repo or website" />
+          <button class="btn btn-glow" type="submit"><span>Make the video</span></button>
+        </form>
+        <div class="hero-actions reveal">
+          <a class="chip-link" href="/make?mode=site"><i class="ic ic-globe"></i>Website mode</a>
+          <a class="chip-link" href="/make?focus=describe"><i class="ic ic-spark"></i>Describe your video</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <a class="logo" href="/"><span class="logo-mark"></span>Klix</a>
+      <nav>
+        <a href="/make">Studio</a>
+        <a href="/make?mode=site">Website mode</a>
+        <a href="/make?focus=describe">Describe</a>
+        <button class="nav-link" data-go="how">How it works</button>
+        <button class="nav-link" data-go="why">Why Klix</button>
+        <button class="nav-link" data-go="faq">FAQ</button>
+        <a href="https://x.com/useklix" target="_blank" rel="noopener">X @useklix</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module" src="./src/landing.ts"></script>
+</body>
+</html>

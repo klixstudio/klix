@@ -1,0 +1,677 @@
+{
+  "fetchedAt": "2026-10-28",
+  "samples": [
+    {
+      "style": "editorial",
+      "repo": {
+        "owner": "react",
+        "name": "react",
+        "url": "https://github.com/react/react",
+        "stars": 251763,
+        "forks": 51578,
+        "language": "JavaScript",
+        "license": "MIT",
+        "release": "v19.3.1"
+      },
+      "script": {
+        "hook": "Build interactive UIs from simple components",
+        "tagline": "React is a JavaScript library for building web and native user interfaces.",
+        "beats": [
+          {
+            "title": "Declarative views",
+            "body": "Design a view for each state and React updates just the right components when data changes."
+          },
+          {
+            "title": "Component-based",
+            "body": "Build encapsulated components that manage their own state, then compose them into complex UIs."
+          },
+          {
+            "title": "Learn once, write anywhere",
+            "body": "Render on the server with Node and power mobile apps with React Native."
+          },
+          {
+            "title": "Gradual adoption",
+            "body": "Use as little or as much React as you need, without rewriting existing code."
+          }
+        ],
+        "code": {
+          "lang": "jsx",
+          "text": "import { createRoot } from 'react-dom/client';\n\nfunction HelloMessage({ name }) {\n  return <div>Hello {name}</div>;\n}\n\nconst root = createRoot(document.getElementById('container'));\nroot.render(<HelloMessage name=\"Taylor\" />);"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "cinematic",
+      "repo": {
+        "owner": "microsoft",
+        "name": "vscode",
+        "url": "https://github.com/microsoft/vscode",
+        "stars": 194359,
+        "forks": 44884,
+        "language": "TypeScript",
+        "license": "MIT",
+        "release": "1.143.1"
+      },
+      "script": {
+        "hook": "Edit, build and debug in one open source editor",
+        "tagline": "Code - OSS is the MIT-licensed open source repository behind Visual Studio Code, built with the community.",
+        "beats": [
+          {
+            "title": "Rich code understanding",
+            "body": "Comprehensive code editing, navigation and understanding support for your core workflow."
+          },
+          {
+            "title": "Lightweight debugging",
+            "body": "Debug right inside the editor, with lightweight integration with your existing tools."
+          },
+          {
+            "title": "Extensible by design",
+            "body": "A rich extensibility model, plus built-in extensions with grammars and snippets for many languages."
+          },
+          {
+            "title": "Runs everywhere",
+            "body": "Available for Windows, macOS and Linux, updated monthly with new features and bug fixes."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/microsoft/vscode.git"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "kinetic",
+      "repo": {
+        "owner": "vercel",
+        "name": "next.js",
+        "url": "https://github.com/vercel/next.js",
+        "stars": 143173,
+        "forks": 34143,
+        "language": "JavaScript",
+        "license": "MIT",
+        "release": "v16.4.3"
+      },
+      "script": {
+        "hook": "Build full-stack web apps on the latest React",
+        "tagline": "Next.js is the React framework for building full-stack web applications.",
+        "beats": [
+          {
+            "title": "Full-stack React apps",
+            "body": "Create full-stack web applications by extending the latest React features."
+          },
+          {
+            "title": "Rust-based tooling",
+            "body": "Integrates powerful Rust-based JavaScript tooling for the fastest builds."
+          },
+          {
+            "title": "Easy to learn",
+            "body": "Get started with the Learn Next.js course and full docs at nextjs.org/docs."
+          },
+          {
+            "title": "Open source community",
+            "body": "MIT licensed, with GitHub Discussions and a Discord server to share projects."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/vercel/next.js.git"
+        },
+        "cta": "Star Next.js on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "minimal",
+      "repo": {
+        "owner": "tailwindlabs",
+        "name": "tailwindcss",
+        "url": "https://github.com/tailwindlabs/tailwindcss",
+        "stars": 98004,
+        "forks": 7676,
+        "language": "TypeScript",
+        "license": "MIT",
+        "release": "v4.3.3"
+      },
+      "script": {
+        "hook": "Style custom UIs fast with utility classes",
+        "tagline": "A utility-first CSS framework for rapidly building custom user interfaces.",
+        "beats": [
+          {
+            "title": "Utility-first CSS",
+            "body": "Compose your designs from small utility classes instead of hand-writing stylesheets."
+          },
+          {
+            "title": "Built for custom UIs",
+            "body": "Designed for rapidly building your own user interfaces, your way."
+          },
+          {
+            "title": "Responsive and PostCSS",
+            "body": "Works with responsive design and PostCSS, built with TypeScript and Rust."
+          },
+          {
+            "title": "Open source, MIT",
+            "body": "MIT licensed, with full docs at tailwindcss.com and discussions on GitHub."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/tailwindlabs/tailwindcss.git"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "terminal",
+      "repo": {
+        "owner": "oven-sh",
+        "name": "bun",
+        "url": "https://github.com/oven-sh/bun",
+        "stars": 96447,
+        "forks": 5183,
+        "language": "Rust",
+        "license": "",
+        "release": "bun-v1.4.4"
+      },
+      "script": {
+        "hook": "Run, test, bundle and install JS with one tool",
+        "tagline": "An all-in-one toolkit for JavaScript and TypeScript apps, shipped as a single executable called bun.",
+        "beats": [
+          {
+            "title": "Drop-in Node.js replacement",
+            "body": "A fast runtime powered by JavaScriptCore, built to cut startup times and memory usage."
+          },
+          {
+            "title": "TypeScript out of the box",
+            "body": "Run .ts and .tsx files directly with bun run. TS and JSX work with no extra setup."
+          },
+          {
+            "title": "Built-in test runner",
+            "body": "bun test runs your tests, with mocks, snapshots and code coverage included."
+          },
+          {
+            "title": "Node-compatible installs",
+            "body": "bun install adds packages and bunx executes them, in existing Node.js projects with few changes."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "bun test                      # run tests\nbun run start                 # run the `start` script in `package.json`\nbun install <pkg>             # install a package\nbunx cowsay 'Hello, world!'   # execute a package"
+        },
+        "cta": "Star oven-sh/bun on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "glitch",
+      "repo": {
+        "owner": "denoland",
+        "name": "deno",
+        "url": "https://github.com/denoland/deno",
+        "stars": 108789,
+        "forks": 6468,
+        "language": "Rust",
+        "license": "MIT",
+        "release": "v2.9.8"
+      },
+      "script": {
+        "hook": "Run TypeScript directly with secure defaults",
+        "tagline": "Deno is a modern runtime for JavaScript, TypeScript and WebAssembly, built on V8, Rust and Tokio.",
+        "beats": [
+          {
+            "title": "TypeScript out of the box",
+            "body": "Write a server.ts file and run it with deno run. JavaScript and WebAssembly work too."
+          },
+          {
+            "title": "Secure by default",
+            "body": "Programs only get access you grant, like network access via the --allow-net flag."
+          },
+          {
+            "title": "Web server in three lines",
+            "body": "Deno.serve takes a handler and returns a standard Response, served on localhost:8000."
+          },
+          {
+            "title": "Std library and JSR",
+            "body": "Officially supported utilities in the Deno Standard Library, plus the open-source JSR registry."
+          }
+        ],
+        "code": {
+          "lang": "ts",
+          "text": "Deno.serve((_req: Request) => {\n  return new Response(\"Hello, world!\");\n});"
+        },
+        "cta": "Star Deno on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "swiss",
+      "repo": {
+        "owner": "sveltejs",
+        "name": "svelte",
+        "url": "https://github.com/sveltejs/svelte",
+        "stars": 88502,
+        "forks": 7433,
+        "language": "JavaScript",
+        "license": "MIT",
+        "release": "svelte@5.57.3"
+      },
+      "script": {
+        "hook": "Write components. Ship efficient JavaScript.",
+        "tagline": "Svelte is a compiler that turns declarative components into efficient JavaScript for web apps.",
+        "beats": [
+          {
+            "title": "A compiler, not a runtime",
+            "body": "Svelte compiles your declarative components ahead of time into efficient JavaScript."
+          },
+          {
+            "title": "Surgical DOM updates",
+            "body": "The generated code updates exactly the parts of the DOM that change."
+          },
+          {
+            "title": "Declarative components",
+            "body": "Describe your UI with components and let the compiler handle the heavy lifting."
+          },
+          {
+            "title": "Open source, MIT",
+            "body": "MIT-licensed and built by volunteers, with a public roadmap and Discord chat."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/sveltejs/svelte.git"
+        },
+        "cta": "Star sveltejs/svelte on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "neon",
+      "repo": {
+        "owner": "vitejs",
+        "name": "vite",
+        "url": "https://github.com/vitejs/vite",
+        "stars": 83616,
+        "forks": 8954,
+        "language": "TypeScript",
+        "license": "MIT",
+        "release": "create-vite@9.3.3"
+      },
+      "script": {
+        "hook": "Start your dev server instantly, every single time",
+        "tagline": "Vite is a frontend build tool for a faster, leaner dev experience on modern web projects.",
+        "beats": [
+          {
+            "title": "Instant Server Start",
+            "body": "A dev server built on native ES modules, with rich feature enhancements out of the box."
+          },
+          {
+            "title": "Lightning Fast HMR",
+            "body": "Extremely fast Hot Module Replacement keeps your edits in sync as you work."
+          },
+          {
+            "title": "Optimized Builds",
+            "body": "A build command that bundles with Rolldown into highly optimized static assets."
+          },
+          {
+            "title": "Fully Typed Plugins",
+            "body": "Extend Vite through its Plugin API and JavaScript API, both with full typing support."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/vitejs/vite.git"
+        },
+        "cta": "Star vitejs/vite on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "luxe",
+      "repo": {
+        "owner": "supabase",
+        "name": "supabase",
+        "url": "https://github.com/supabase/supabase",
+        "stars": 114219,
+        "forks": 16320,
+        "language": "TypeScript",
+        "license": "Apache-2.0",
+        "release": "v1.26.08"
+      },
+      "script": {
+        "hook": "Get Postgres, auth, APIs and storage in one place",
+        "tagline": "Supabase is the open source Postgres development platform with Firebase-like features.",
+        "beats": [
+          {
+            "title": "Dedicated Postgres database",
+            "body": "Hosted Postgres for web, mobile and AI apps. Self-host or develop locally too."
+          },
+          {
+            "title": "Auto-generated APIs",
+            "body": "REST and GraphQL APIs from your database, plus realtime subscriptions over websockets."
+          },
+          {
+            "title": "Auth and storage built in",
+            "body": "JWT-based sign-ups, logins and sessions, plus file storage with Postgres permissions."
+          },
+          {
+            "title": "Functions and AI toolkit",
+            "body": "Run database and edge functions, and build AI features with the vector toolkit."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/supabase/supabase.git"
+        },
+        "cta": "Star supabase on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "aurora",
+      "repo": {
+        "owner": "shadcn-ui",
+        "name": "ui",
+        "url": "https://github.com/shadcn-ui/ui",
+        "stars": 126761,
+        "forks": 12549,
+        "language": "TypeScript",
+        "license": "MIT",
+        "release": "shadcn@4.23.0"
+      },
+      "script": {
+        "hook": "Own every line of your UI components",
+        "tagline": "Beautifully designed, accessible components you customize, extend and build your own library on.",
+        "beats": [
+          {
+            "title": "Open Code",
+            "body": "The component code is yours to read, customize and extend. Start here, then make it your own."
+          },
+          {
+            "title": "Accessible by Default",
+            "body": "Composable, accessible components with thoughtful defaults built in."
+          },
+          {
+            "title": "Your Own Library",
+            "body": "Use it as the foundation to build your own component library."
+          },
+          {
+            "title": "MIT Licensed",
+            "body": "Open source under the MIT license, written in TypeScript."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/shadcn-ui/ui.git"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "brutal",
+      "repo": {
+        "owner": "rust-lang",
+        "name": "rust",
+        "url": "https://github.com/rust-lang/rust",
+        "stars": 120875,
+        "forks": 17994,
+        "language": "Rust",
+        "license": "Apache-2.0",
+        "release": "1.99.1"
+      },
+      "script": {
+        "hook": "Build fast software without memory bugs",
+        "tagline": "The compiler, standard library and docs for Rust, a language for reliable and efficient software.",
+        "beats": [
+          {
+            "title": "Fast and memory-efficient",
+            "body": "Suited to critical services and embedded devices, and easy to integrate with other languages."
+          },
+          {
+            "title": "Safety at compile time",
+            "body": "A rich type system and ownership model ensure memory and thread safety before your code runs."
+          },
+          {
+            "title": "Helpful diagnostics",
+            "body": "A compiler committed to great error messages, backed by comprehensive documentation."
+          },
+          {
+            "title": "Tooling included",
+            "body": "Cargo for builds and packages, rustfmt, Clippy and rust-analyzer for editor support."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/rust-lang/rust.git"
+        },
+        "cta": "Star rust-lang/rust on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "pop",
+      "repo": {
+        "owner": "microsoft",
+        "name": "TypeScript",
+        "url": "https://github.com/microsoft/TypeScript",
+        "stars": 111642,
+        "forks": 16037,
+        "language": "Go",
+        "license": "Apache-2.0",
+        "release": "v7.0.2"
+      },
+      "script": {
+        "hook": "Add types to JavaScript without leaving JavaScript",
+        "tagline": "TypeScript is a superset of JavaScript that adds optional types and compiles to clean JavaScript.",
+        "beats": [
+          {
+            "title": "Optional static types",
+            "body": "Add types where you want them to power tooling for large-scale JavaScript applications."
+          },
+          {
+            "title": "Readable JavaScript output",
+            "body": "Compiles to readable, standards-based JavaScript you can ship anywhere."
+          },
+          {
+            "title": "Any browser, host or OS",
+            "body": "Built for application-scale JavaScript that runs in any browser, on any host, on any OS."
+          },
+          {
+            "title": "Stable or nightly",
+            "body": "Install the latest stable release, or try nightly builds with typescript@next."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "npm install -D typescript"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "blueprint",
+      "repo": {
+        "owner": "golang",
+        "name": "go",
+        "url": "https://github.com/golang/go",
+        "stars": 139477,
+        "forks": 21580,
+        "language": "Go",
+        "license": "BSD-3-Clause",
+        "release": ""
+      },
+      "script": {
+        "hook": "Build simple, reliable, efficient software",
+        "tagline": "Go is an open source programming language that makes it easy to build simple, reliable, efficient software.",
+        "beats": [
+          {
+            "title": "Simple and reliable",
+            "body": "A language designed to make building simple, reliable and efficient software easy."
+          },
+          {
+            "title": "Official binaries",
+            "body": "Download official binary distributions from go.dev/dl and follow the install guide."
+          },
+          {
+            "title": "Build from source",
+            "body": "No binary for your OS and architecture? Install from source with the official instructions."
+          },
+          {
+            "title": "Open source, BSD licensed",
+            "body": "Distributed under a BSD-style license and built by thousands of contributors."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/golang/go.git"
+        },
+        "cta": "Star golang/go on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "noir",
+      "repo": {
+        "owner": "torvalds",
+        "name": "linux",
+        "url": "https://github.com/torvalds/linux",
+        "stars": 253692,
+        "forks": 67442,
+        "language": "C",
+        "license": "",
+        "release": ""
+      },
+      "script": {
+        "hook": "Hack on the code that runs your hardware",
+        "tagline": "The Linux kernel source tree: the core that manages hardware and resources for every Linux OS.",
+        "beats": [
+          {
+            "title": "Runs your hardware",
+            "body": "Handles hardware, system resources and the core services all other software relies on."
+          },
+          {
+            "title": "Docs for every role",
+            "body": "Guides for new developers, researchers, security experts, sysadmins, maintainers and vendors."
+          },
+          {
+            "title": "Internals explained",
+            "body": "Read up on memory management, the scheduler, networking, filesystems, RCU and locking."
+          },
+          {
+            "title": "Open community",
+            "body": "Report bugs, send your first patch and join discussions on lore.kernel.org and IRC."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/torvalds/linux.git"
+        },
+        "cta": "Explore the source on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "mesh",
+      "repo": {
+        "owner": "tauri-apps",
+        "name": "tauri",
+        "url": "https://github.com/tauri-apps/tauri",
+        "stars": 112249,
+        "forks": 4122,
+        "language": "Rust",
+        "license": "Apache-2.0",
+        "release": "tauri-cli-v2.12.4"
+      },
+      "script": {
+        "hook": "Ship your web app as a tiny native desktop app",
+        "tagline": "A Rust framework for building small, fast desktop and mobile apps with any web frontend.",
+        "beats": [
+          {
+            "title": "Any web frontend",
+            "body": "Use any framework that compiles to HTML, JS and CSS, backed by a Rust binary with an API."
+          },
+          {
+            "title": "Desktop and mobile",
+            "body": "Target Windows, macOS, Linux, iOS and Android using the system webview."
+          },
+          {
+            "title": "Built-in bundler",
+            "body": "Produce .app, .dmg, .deb, .rpm, .AppImage, .exe and .msi bundles out of the box."
+          },
+          {
+            "title": "Native extras included",
+            "body": "Self updater on desktop, system tray icons, native notifications and no localhost server."
+          }
+        ],
+        "code": {
+          "lang": "sh",
+          "text": "npm create tauri-app@latest"
+        },
+        "cta": "Star tauri-apps/tauri on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "style": "keynote",
+      "repo": {
+        "owner": "nodejs",
+        "name": "node",
+        "url": "https://github.com/nodejs/node",
+        "stars": 123113,
+        "forks": 39267,
+        "language": "JavaScript",
+        "license": "",
+        "release": "v26.12.1"
+      },
+      "script": {
+        "hook": "Run JavaScript outside the browser, on any platform",
+        "tagline": "Node.js is an open-source, cross-platform JavaScript runtime environment.",
+        "beats": [
+          {
+            "title": "Long Term Support lines",
+            "body": "Every major version becomes LTS with 30 months of support, 36 months in total."
+          },
+          {
+            "title": "Predictable release cadence",
+            "body": "Follows semver, with a new major each April and Alpha lines for library authors."
+          },
+          {
+            "title": "Verifiable binaries",
+            "body": "Check downloads against SHA checksums and releaser PGP signatures."
+          },
+          {
+            "title": "Open governance",
+            "body": "Run under an open governance model with support from the OpenJS Foundation."
+          }
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "git clone https://github.com/nodejs/node.git"
+        },
+        "cta": "Star it on GitHub"
+      },
+      "by": "claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

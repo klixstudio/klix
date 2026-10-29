@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Klix Studio · Make a launch video</title>
+  <meta property="og:title" content="Klix Studio · Make a launch video" />
+  <meta property="og:description" content="Paste a GitHub repo or a website, get a launch video for X." />
+  <meta property="og:url" content="https://klixstudio.com/make" />
+  <meta property="og:image" content="https://klixstudio.com/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://klixstudio.com/og.jpg" />
+  <meta name="description" content="Paste a GitHub repo, pick a style and render a launch video in your browser." />
+  <meta name="theme-color" content="#050404" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../src/theme.css" />
+  <link rel="stylesheet" href="../src/studio.css" />
+</head>
+<body class="studio-page">
+  <header class="nav solid" id="nav">
+    <div class="wrap nav-in">
+      <nav class="nav-left">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/?go=styles">Styles</a>
+        <a class="nav-link" href="/?go=features">Features</a>
+      </nav>
+      <a class="logo" href="/" aria-label="Klix home"><span class="logo-mark"></span>Klix<span class="logo-tag">Studio</span></a>
+      <div class="nav-right">
+        <span class="mode" id="mode">Connecting</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="studio wrap">
+    <aside class="panel">
+      <section class="block source">
+        <div class="block-head"><span class="kicker">Source</span><span class="block-meta" id="source-meta">Sample</span></div>
+        <div class="seg source-kind" id="source-kind" role="radiogroup" aria-label="Source">
+          <button type="button" role="radio" data-kind="repo" aria-checked="true">GitHub repo</button>
+          <button type="button" role="radio" data-kind="site" aria-checked="false">Website</button>
+        </div>
+        <form class="repo-field" id="repo-form">
+          <span class="prefix" id="source-prefix">github.com/</span>
+          <input id="repo" name="repo" placeholder="owner/repo" autocomplete="off" spellcheck="false" aria-label="GitHub repo" />
+          <button class="btn btn-glow" id="go" type="submit"><span>Generate</span></button>
+        </form>
+        <p class="status" id="status" role="status">Showing a sample. Paste a public repo to make yours.</p>
+      </section>
+
+      <section class="block describe">
+        <div class="block-head"><span class="kicker">Describe</span><span class="block-meta">Claude directs</span></div>
+        <form id="brief-form" class="brief">
+          <textarea id="brief" rows="3" maxlength="2000" placeholder="Describe the video you want. For example: slow and cinematic like an Apple keynote, vertical for Reels, epic music, stress how fast it is."></textarea>
+          <div class="brief-row">
+            <div class="brief-chips" id="brief-chips">
+              <button type="button">Hype, fast cuts, vertical</button>
+              <button type="button">Calm Apple keynote</button>
+              <button type="button">Dark trailer, epic music</button>
+            </div>
+            <button class="btn btn-glow" id="direct" type="submit"><span>Direct</span></button>
+          </div>
+        </form>
+      </section>
+
+      <div class="tabs" role="tablist" aria-label="Editor">
+        <button role="tab" type="button" data-tab="script" aria-selected="true">Script</button>
+        <button role="tab" type="button" data-tab="style" aria-selected="false">Style</button>
+        <button role="tab" type="button" data-tab="type" aria-selected="false">Type</button>
+        <button role="tab" type="button" data-tab="output" aria-selected="false">Output</button>
+        <button role="tab" type="button" data-tab="sound" aria-selected="false">Sound</button>
+        <button role="tab" type="button" data-tab="effects" aria-selected="false">Effects</button>
+      </div>
+
+      <section class="block" data-panel="script" role="tabpanel">
+        <div class="block-head">
+          <span class="kicker">Script</span>
+          <button class="chip-btn" id="rewrite" type="button" hidden>Rewrite with Claude</button>
+        </div>
+        <label class="field">
+          <span>Hook <i data-count="hook"></i></span>
+          <input id="f-hook" maxlength="70" />
+        </label>
+        <div class="beats" id="beats"></div>
+        <button class="chip-btn add" id="add-beat" type="button">Add a feature</button>
+        <label class="field">
+          <span>Code language</span>
+          <input id="f-lang" maxlength="16" class="mono" />
+        </label>
+        <label class="field">
+          <span>Code</span>
+          <textarea id="f-code" rows="6" class="mono" spellcheck="false"></textarea>
+          <small class="hint">Copied from a code block in the README. Up to 9 lines read well.</small>
+        </label>
+        <label class="field">
+          <span>Closing line <i data-count="tagline"></i></span>
+          <textarea id="f-tagline" rows="2" maxlength="130"></textarea>
+        </label>
+        <label class="field">
+          <span>Button <i data-count="cta"></i></span>
+          <input id="f-cta" maxlength="44" />
+        </label>
+        <div class="sub">Scenes</div>
+        <label class="toggle"><input type="checkbox" data-opt="code" /><span class="toggle-ui"></span>Code scene</label>
+        <label class="toggle" id="stats-toggle"><input type="checkbox" data-opt="stats" /><span class="toggle-ui"></span>Repo numbers <small id="stats-note">after you load a repo</small></label>
+      </section>
+
+      <section class="block" data-panel="style" role="tabpanel" hidden>
+        <div class="block-head"><span class="kicker">Video style</span><span class="block-meta" id="style-name"></span></div>
+        <div class="styles" id="styles"></div>
+        <div class="sub">Palette</div>
+        <div class="themes" id="themes"></div>
+        <div class="field-row">
+          <label class="field color-field">
+            <span>Accent</span>
+            <span class="color-in"><input type="color" id="f-accent" value="#ffb38a" /><b id="accent-hex">Palette</b></span>
+          </label>
+          <button class="chip-btn" id="accent-reset" type="button">Use palette</button>
+        </div>
+        <label class="field">
+          <span>Transition</span>
+          <select id="f-transition"></select>
+        </label>
+      </section>
+
+      <section class="block" data-panel="type" role="tabpanel" hidden>
+        <div class="block-head"><span class="kicker">Typeface</span><span class="block-meta" id="font-name"></span></div>
+        <div class="fonts" id="fonts"></div>
+        <label class="field">
+          <span>Text size <i id="scale-val">100%</i></span>
+          <input type="range" id="f-scale" min="80" max="130" step="5" value="100" />
+        </label>
+        <div class="sub">Alignment</div>
+        <div class="seg" data-seg="align">
+          <button type="button" data-v="auto">Style</button>
+          <button type="button" data-v="left">Left</button>
+          <button type="button" data-v="center">Center</button>
+        </div>
+        <div class="sub">Case</div>
+        <div class="seg" data-seg="case">
+          <button type="button" data-v="auto">Style</button>
+          <button type="button" data-v="upper">UPPER</button>
+          <button type="button" data-v="asis">As written</button>
+        </div>
+      </section>
+
+      <section class="block" data-panel="output" role="tabpanel" hidden>
+        <div class="block-head"><span class="kicker">Aspect</span><span class="block-meta" id="dims"></span></div>
+        <div class="aspects" id="aspects"></div>
+        <div class="sub">Resolution</div>
+        <div class="seg" data-seg="resolution" data-num></div>
+        <div class="sub">Frame rate</div>
+        <div class="seg" data-seg="fps" data-num>
+          <button type="button" data-v="60">60 fps</button>
+          <button type="button" data-v="90">90 fps</button>
+          <button type="button" data-v="120">120 fps</button>
+        </div>
+        <div class="sub">Cut</div>
+        <div class="seg" data-seg="edit">
+          <button type="button" data-v="auto">Style</button>
+          <button type="button" data-v="fast">Fast cuts</button>
+          <button type="button" data-v="balanced">Balanced</button>
+          <button type="button" data-v="slow">Slow</button>
+        </div>
+        <small class="hint" id="edit-note"></small>
+        <div class="sub">Quality</div>
+        <div class="seg" data-seg="quality">
+          <button type="button" data-v="standard">Standard</button>
+          <button type="button" data-v="high">High</button>
+          <button type="button" data-v="max">Max</button>
+        </div>
+        <dl class="spec" id="spec"></dl>
+      </section>
+
+      <section class="block" data-panel="sound" role="tabpanel" hidden>
+        <div class="block-head"><span class="kicker">Music</span><span class="block-meta" id="track-name"></span></div>
+        <div class="tracks" id="tracks"></div>
+        <label class="field">
+          <span>Volume <i id="volume-val">80%</i></span>
+          <input type="range" id="f-volume" min="0" max="100" step="5" value="80" />
+        </label>
+        <p class="hint">Every track is made in your browser, in time with the cut: a build into the title, the groove under the features, hits on every cut. No samples, nothing to license. It goes into the MP4.</p>
+      </section>
+
+      <section class="block" data-panel="effects" role="tabpanel" hidden>
+        <div class="block-head"><span class="kicker">Effects</span></div>
+        <label class="toggle"><input type="checkbox" data-opt="object" /><span class="toggle-ui"></span>3D glass prism <small>on the title and closing shots</small></label>
+        <label class="toggle"><input type="checkbox" data-opt="camera" /><span class="toggle-ui"></span>Camera push-in <small>slow zoom through each scene</small></label>
+        <label class="toggle"><input type="checkbox" data-opt="grain" /><span class="toggle-ui"></span>Film grain <small>moving noise over the frame</small></label>
+        <label class="toggle"><input type="checkbox" data-opt="vignette" /><span class="toggle-ui"></span>Vignette <small>darker edges</small></label>
+        <label class="toggle"><input type="checkbox" data-opt="letterbox" /><span class="toggle-ui"></span>Letterbox <small>black bars, top and bottom</small></label>
+        <label class="toggle"><input type="checkbox" data-opt="hud" /><span class="toggle-ui"></span>On-screen info <small>repo name, time code, scene progress</small></label>
+        <p class="hint">The small "made with klix" mark stays on every video.</p>
+        <button class="chip-btn" id="reset-style" type="button">Reset to style defaults</button>
+      </section>
+    </aside>
+
+    <section class="stage">
+      <div class="screen-wrap">
+        <div class="screen-meta">
+          <span class="rec"><i></i><b id="meta-style">Editorial</b></span>
+          <span id="meta-spec">1080 x 1080 · 30 fps</span>
+        </div>
+        <div class="screen" id="screen">
+          <canvas id="preview"></canvas>
+          <button class="big-play" id="big-play" type="button" aria-label="Play">
+            <svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="transport">
+        <button class="icon-btn" id="play" type="button" aria-label="Play">
+          <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+        </button>
+        <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Seek" />
+        <span class="time" id="time">00:00 / 00:00</span>
+        <button class="icon-btn" id="mute" type="button" aria-label="Mute" aria-pressed="false">
+          <svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          <svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+        </button>
+      </div>
+      <div class="scenes" id="scenes" aria-label="Scenes"></div>
+      <div class="export card">
+        <div class="export-row">
+          <div>
+            <h2 class="serif">Export</h2>
+            <p id="export-spec" class="export-spec"></p>
+            <p id="export-note">Rendered in this tab, in real time.</p>
+          </div>
+          <button class="btn btn-glow" id="export" type="button"><span id="export-label">Export video</span></button>
+        </div>
+        <div class="progress" id="progress" hidden><span id="progress-bar"></span></div>
+        <div class="done" id="done" hidden>
+          <a class="btn btn-glow" id="download" download><span>Download</span></a>
+          <button class="btn btn-glow" id="share-x" type="button"><span>Share to X</span></button>
+          <button class="btn" id="copy-post" type="button">Copy post text</button>
+          <span class="size" id="size"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../src/studio.ts"></script>
+</body>
+</html>

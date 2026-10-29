@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Launch lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./src/theme.css" />
+<style>
+  html, body { margin: 0; background: #000; }
+  .art { position: relative; overflow: hidden; background: #050404; color: var(--ink); font-family: var(--sans); display: none; }
+  .art.on { display: block; }
+  .pearl { background: var(--pearl-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .word { font-weight: 300; letter-spacing: 0.32em; margin-right: -0.32em; }
+  .serif { font-family: var(--serif); font-weight: 400; }
+  .center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .frame { position: absolute; border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 30px 60px -20px rgba(0,0,0,0.9); }
+  .frame canvas { width: 100%; height: 100%; display: block; }
+  .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(246,239,231,0.12) 1px, transparent 1.2px); background-size: 24px 24px; }
+
+  /* Profile picture: the glass prism on black, centred for the circle crop. */
+  /* Same ground as the site: warm glow behind the prism over the dot grid. */
+  #pfp { width: 800px; height: 800px; background: radial-gradient(360px 360px at 50% 50%, rgba(120, 72, 70, 0.42), rgba(60, 34, 38, 0.18) 55%, transparent 80%), radial-gradient(rgba(246, 239, 231, 0.16) 1.6px, transparent 2px) 0 0 / 32px 32px, #050404; }
+  #pfp canvas { position: absolute; left: 130px; top: 130px; width: 540px; height: 540px; }
+
+  #og { width: 1200px; height: 630px; background: radial-gradient(700px 420px at 50% 45%, #161011, #050404 75%); }
+  #b1, #b2, #b3 { width: 1500px; height: 500px; }
+  /* Same ground as the site and the profile picture: dot grid and a warm glow in the middle. */
+  .ground { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(560px 300px at 50% 50%, rgba(120, 72, 70, 0.32), rgba(60, 34, 38, 0.14) 55%, transparent 80%), radial-gradient(rgba(246, 239, 231, 0.13) 1.4px, transparent 1.8px) 0 0 / 28px 28px; }
+
+  /* Banner 1: real frames fan out from the centre, the wordmark sits on a pool of light. */
+  #b1 .fan { position: absolute; inset: 0; }
+  #b1 .fan::after { content: ''; position: absolute; inset: 0; background: radial-gradient(520px 330px at 50% 50%, #050404 45%, rgba(5,4,4,0.7) 75%, rgba(5,4,4,0.15) 100%), linear-gradient(90deg, #050404 0%, transparent 14%, transparent 86%, #050404 100%); }
+  #b1 .word { font-size: 104px; }
+  #b1 .tag { font-size: 34px; color: var(--ink-2); font-style: italic; margin-top: 14px; }
+
+  /* Banner 2: a film strip of real frames runs through, the line sits across it. */
+  #b2 .strip { position: absolute; left: -40px; right: -40px; top: 105px; height: 290px; }
+  #b2 .strip::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,4,4,0.55), rgba(5,4,4,0.92) 22%, rgba(5,4,4,0.92) 78%, rgba(5,4,4,0.55)); }
+  #b2 .h { font-size: 92px; line-height: 0.95; }
+  #b2 .styles { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font-family: var(--mono); font-size: 15px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+
+  /* Banner 3: the prism in the middle, beams of light either side, the name under it. */
+
+  #b3 .beam { position: absolute; top: 34%; height: 2px; width: 560px; background: linear-gradient(90deg, transparent, rgba(255,200,170,0.55), transparent); filter: blur(0.5px); }
+  #b3 .beam.l { right: 50%; margin-right: 140px; } #b3 .beam.r { left: 50%; margin-left: 140px; }
+  #b3 .beam.w { height: 70px; margin-top: -34px; background: radial-gradient(closest-side, rgba(255,180,160,0.12), transparent); filter: blur(10px); }
+  #b3 canvas { position: absolute; left: 610px; top: 28px; width: 280px; height: 280px; }
+  #b3 .under { position: absolute; left: 0; right: 0; top: 318px; text-align: center; }
+  #b3 .word { font-size: 56px; }
+  #b3 .tag { font-size: 28px; color: var(--ink-2); font-style: italic; margin-top: 10px; }
+  #b3 .side { position: absolute; top: 34%; transform: translateY(-50%); font-family: var(--mono); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); line-height: 2.2; }
+  #b3 .side.l { left: 110px; } #b3 .side.r { right: 110px; text-align: right; }
+
+  /* GitHub README: headline left, a real frame in a player on the right. */
+  #gh { width: 1600px; height: 600px; }
+  #gh .ground { background: radial-gradient(620px 420px at 74% 50%, rgba(120, 72, 70, 0.36), rgba(60, 34, 38, 0.14) 55%, transparent 80%), radial-gradient(rgba(246, 239, 231, 0.11) 1.4px, transparent 1.8px) 0 0 / 28px 28px; }
+  #gh .copy { position: absolute; left: 110px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; }
+  #gh .brand { display: flex; align-items: center; gap: 16px; font-size: 26px; }
+  #gh .brand canvas { width: 54px; height: 54px; }
+  #gh .h { font-size: 104px; line-height: 0.98; margin-top: 30px; }
+  #gh .sub { font-size: 24px; color: var(--ink-2); margin-top: 30px; max-width: 560px; line-height: 1.45; }
+  #gh .player { position: absolute; right: 100px; top: 70px; width: 720px; height: 460px; border-radius: 22px; overflow: hidden; background: #0b0909; box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 50px 90px -30px rgba(0,0,0,0.95); transform: perspective(1600px) rotateY(-9deg); transform-origin: right center; }
+  #gh .player canvas { position: absolute; left: 0; top: 0; width: 720px; height: 405px; }
+  #gh .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 55px; display: flex; align-items: center; gap: 16px; padding: 0 20px; font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: 0.08em; }
+  #gh .track { flex: 1; height: 3px; border-radius: 3px; background: rgba(246,239,231,0.14); position: relative; }
+  #gh .track::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 38%; border-radius: 3px; background: linear-gradient(90deg, #ffd0b4, #d8c6ff); }
+
+  /* GitHub README: eight real frames, one per style. */
+  #grid { width: 1600px; height: 900px; }
+  #grid .cells { position: absolute; left: 60px; right: 60px; top: 60px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+  #grid .cell canvas { width: 100%; aspect-ratio: 1; display: block; border-radius: 16px; box-shadow: 0 0 0 1px rgba(255,255,255,0.1); }
+  #grid .cell div { font-family: var(--mono); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+
+  /* GitHub social preview, 1280 x 640. */
+  #social { width: 1280px; height: 640px; }
+  #social canvas { position: absolute; left: 520px; top: 70px; width: 240px; height: 240px; }
+  #social .under { position: absolute; left: 0; right: 0; top: 330px; text-align: center; }
+  #social .word { font-size: 92px; }
+  #social .tag { font-size: 40px; color: var(--ink-2); font-style: italic; margin-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="art" id="og"><div class="center"><div><div class="word pearl" style="font-size:150px">KLIX</div><div class="serif" style="font-size:46px;color:var(--ink-2);font-style:italic;margin-top:26px">Every launch deserves a trailer.</div></div></div></div>
+  <div class="art" id="pfp"><canvas id="p0"></canvas></div>
+
+  <div class="art" id="b1"><div class="fan" id="fan"></div><div class="ground"></div>
+    <div class="center"><div><div class="word pearl">KLIX</div><div class="serif tag">Every launch deserves a trailer.</div></div></div>
+  </div>
+
+  <div class="art" id="b2"><div class="strip" id="strip"></div><div class="ground"></div>
+    <div class="center"><div><div class="serif h pearl">Every launch deserves a trailer.</div></div></div><div><div class="styles">Repo or website &nbsp;·&nbsp; 16 styles &nbsp;·&nbsp; Music &nbsp;·&nbsp; Ready for X</div></div></div>
+  </div>
+
+  <div class="art" id="b3"><div class="ground"></div>
+    <div class="beam l"></div><div class="beam r"></div><div class="beam w l"></div><div class="beam w r"></div>
+    <canvas id="p3"></canvas>
+    <div class="side l">GitHub repo<br />Website<br />Describe it</div>
+    <div class="side r">16 styles<br />Original score<br />60 to 120 fps</div>
+    <div class="under"><div class="word pearl">KLIX</div><div class="serif tag">Every launch deserves a trailer.</div></div>
+  </div>
+
+  <div class="art" id="gh"><div class="ground"></div>
+    <div class="copy">
+      <div class="brand"><canvas id="pg"></canvas><span class="word" style="font-size:30px">KLIX</span></div>
+      <div class="serif h pearl">Every launch<br />deserves a trailer.</div>
+      <div class="sub">Paste a GitHub repo or a website. Claude writes and directs the cut. Your browser renders the MP4, with its own score.</div>
+    </div>
+    <div class="player"><canvas id="gf"></canvas><div class="bar"><span>00:09</span><div class="track"></div><span>00:28</span></div></div>
+  </div>
+
+  <div class="art" id="grid"><div class="ground"></div><div class="cells" id="cells"></div></div>
+
+  <div class="art" id="social"><div class="ground"></div><canvas id="ps"></canvas>
+    <div class="under"><div class="word pearl">KLIX</div><div class="serif tag">Every launch deserves a trailer.</div></div>
+  </div>
+
+<script type="module">
+  import { loadFonts, still, timeline } from './src/render.ts';
+  import { sampleFor } from './src/sample.ts';
+  import { startPrism } from './src/prism.ts';
+  const v = new URLSearchParams(location.search).get('v') ?? 'pfp';
+  document.getElementById(v).classList.add('on');
+  await document.fonts.ready;
+  await loadFonts();
+  const at = (input, kind, part) => { const sc = timeline(input).find((x) => x.kind === kind) ?? timeline(input)[0]; return sc.start + sc.dur * part; };
+  const frame = (parent, style, x, y, size, rot = 0) => {
+    const d = document.createElement('div');
+    d.className = 'frame';
+    Object.assign(d.style, { left: x + 'px', top: y + 'px', width: size + 'px', height: size + 'px', transform: `rotate(${rot}deg)` });
+    const c = document.createElement('canvas');
+    const input = sampleFor(style);
+    still(c, input, at(input, 'name', 0.7), 540);
+    d.append(c);
+    parent.prepend(d);
+  };
+  if (v === 'pfp') startPrism(document.getElementById('p0'));
+  if (v === 'b3') startPrism(document.getElementById('p3'));
+  if (v === 'gh') {
+    startPrism(document.getElementById('pg'));
+    const input = { ...sampleFor('cinematic'), format: 'landscape' };
+    still(document.getElementById('gf'), input, at(input, 'name', 0.75), 1080);
+  }
+  if (v === 'social') startPrism(document.getElementById('ps'));
+  if (v === 'grid') {
+    const cells = document.getElementById('cells');
+    for (const st of ['editorial', 'kinetic', 'cinematic', 'swiss', 'neon', 'luxe', 'terminal', 'pop']) {
+      const d = document.createElement('div');
+      d.className = 'cell';
+      const c = document.createElement('canvas');
+      const input = sampleFor(st);
+      still(c, input, at(input, 'name', 0.75), 720);
+      const label = document.createElement('div');
+      label.textContent = `${st} · ${input.repo.owner}/${input.repo.name}`;
+      d.append(c, label);
+      cells.append(d);
+    }
+  }
+  if (v === 'b1') {
+    const fan = document.getElementById('fan');
+    // Mirrored pairs, larger and flatter towards the centre.
+    [['neon', 'cinematic', 590, 320, 0], ['swiss', 'luxe', 360, 280, 6]].forEach(([a, b, dx, s, r]) => {
+      frame(fan, a, 750 - dx - s / 2, 250 - s / 2, s, -r);
+      frame(fan, b, 750 + dx - s / 2, 250 - s / 2, s, r);
+    });
+  }
+  if (v === 'b2') {
+    const strip = document.getElementById('strip');
+    ['brutal', 'swiss', 'neon', 'luxe', 'cinematic', 'aurora', 'pop', 'kinetic'].forEach((st, i) => frame(strip, st, i * 200, 0, 186));
+    strip.querySelectorAll('.frame').forEach((f) => (f.style.top = '52px'));
+  }
+</script>
+</body>
+</html>

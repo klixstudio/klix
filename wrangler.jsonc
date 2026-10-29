@@ -1,0 +1,29 @@
+{
+  // Cloudflare Workers deploy: `npm.cmd run build`, then `npx.cmd wrangler deploy`.
+  // Secrets (ANTHROPIC_API_KEY, GITHUB_TOKEN) are set with `wrangler secret`, never in this file.
+  "name": "klix",
+  "main": "server/worker.ts",
+  "compatibility_date": "2026-10-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  "kv_namespaces": [{ "binding": "CACHE" }],
+  "durable_objects": { "bindings": [{ "name": "USAGE", "class_name": "Usage" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Usage"] }],
+  "vars": {
+    "CLAUDE_MODEL": "claude-opus-5-5",
+    "CLAUDE_EFFORT": "low",
+    "SCRIPTS_PER_IP_PER_DAY": "5",
+    "CLAUDE_CALLS_PER_DAY": "150"
+  },
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "klixstudio.com", "custom_domain": true },
+    { "pattern": "www.klixstudio.com", "custom_domain": true }
+  ],
+  "observability": { "enabled": true }
+}

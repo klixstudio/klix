@@ -1,0 +1,453 @@
+{
+  "fetchedAt": "2026-10-28",
+  "samples": [
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "linear.app",
+        "name": "Linear",
+        "url": "https://linear.app",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/linear.app.png"
+      },
+      "script": {
+        "hook": "Plan and build products with teams and agents",
+        "tagline": "Linear is the product development system for teams and agents, purpose-built for the AI era.",
+        "beats": [
+          {
+            "title": "Intake and integrations",
+            "body": "Turn conversations and customer feedback into issues routed, labeled, and prioritized for the…"
+          },
+          {
+            "title": "Planning and monitoring",
+            "body": "Plan from idea to launch with product initiatives, strategic roadmaps, and clear, up-to-date PRDs."
+          },
+          {
+            "title": "AI agents as teammates",
+            "body": "Build and deploy agents that work alongside you, or delegate entire issues end-to-end."
+          },
+          {
+            "title": "Build, review, and ship",
+            "body": "Streamline code reviews with clear diffs and better context. Keep PRs moving without losing quality."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Get started at linear.app"
+      },
+      "look": {
+        "style": "minimal",
+        "bg": "#08090a",
+        "bg2": "#191d20",
+        "ink": "#e2e4e7",
+        "accents": [
+          "#ffebc6",
+          "#8fa6ff",
+          "#9c9da1"
+        ],
+        "light": false,
+        "fontFamily": "",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "vercel.com",
+        "name": "Vercel",
+        "url": "https://vercel.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/vercel.com.png"
+      },
+      "script": {
+        "hook": "Ship apps and agents from zero to millions",
+        "tagline": "Vercel is the autonomous stack for every app and agent.",
+        "beats": [
+          {
+            "title": "Built for coding agents",
+            "body": "Agents deploy in their native language with Vercel's API, CLI, MCP, and Skills."
+          },
+          {
+            "title": "Sandboxed and durable",
+            "body": "Ship apps and agents in sandboxed VMs with durable backends, powered by 400+ models."
+          },
+          {
+            "title": "Automated by agents",
+            "body": "Agents autonomously investigate errors, plan fixes, and open PRs."
+          },
+          {
+            "title": "Scale instantly",
+            "body": "Global delivery, serverless functions, and a web application firewall for every app."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Deploy now at vercel.com"
+      },
+      "look": {
+        "style": "minimal",
+        "bg": "#fafafa",
+        "bg2": "#eaeaea",
+        "ink": "#000000",
+        "accents": [
+          "#0070f3",
+          "#10bcec",
+          "#de2670"
+        ],
+        "light": true,
+        "fontFamily": "GeistSans",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "raycast.com",
+        "name": "Raycast",
+        "url": "https://www.raycast.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/raycast.com.png"
+      },
+      "script": {
+        "hook": "Your shortcut to everything, one keystroke away",
+        "tagline": "A collection of powerful productivity tools all within an extendable launcher.",
+        "beats": [
+          {
+            "title": "Extensions for everything",
+            "body": "Use your favorite tools like Linear, Slack and Notion without even opening them."
+          },
+          {
+            "title": "AI one hotkey away",
+            "body": "Quick AI lives a single hotkey away, giving you Raycast AI without leaving your workflow."
+          },
+          {
+            "title": "Don't repeat yourself",
+            "body": "Snippets, quicklinks, hotkeys and aliases automate the things you do all the time."
+          },
+          {
+            "title": "Build the perfect tools",
+            "body": "A strongly typed extension API with built-in UI, hot-reloading and modern tooling."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Try it free at raycast.com"
+      },
+      "look": {
+        "style": "keynote",
+        "bg": "#07080a",
+        "bg2": "#111214",
+        "ink": "#ffffff",
+        "accents": [
+          "#ff6363",
+          "#9aaaff",
+          "#56c2ff"
+        ],
+        "light": false,
+        "fontFamily": "Inter",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "stripe.com",
+        "name": "Stripe",
+        "url": "https://stripe.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/stripe.com.jpg"
+      },
+      "script": {
+        "hook": "Accept payments and grow revenue, anywhere",
+        "tagline": "Stripe is financial infrastructure to accept payments, run billing, and manage money movement.",
+        "beats": [
+          {
+            "title": "Payments, globally",
+            "body": "Accept and optimize payments online and in person, with 135+ currencies and payment methods."
+          },
+          {
+            "title": "Any billing model",
+            "body": "Build flexible billing, from subscriptions to usage-based pricing."
+          },
+          {
+            "title": "Built to scale",
+            "body": "Handle thousands of transactions per second, with 99.999% historical uptime."
+          },
+          {
+            "title": "Code or no code",
+            "body": "Use SDKs, APIs and AI tools, or set up payment links right from the Dashboard."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Start now at stripe.com"
+      },
+      "look": {
+        "style": "mesh",
+        "bg": "#ffffff",
+        "bg2": "#f8fafd",
+        "ink": "#0d1738",
+        "accents": [
+          "#533afd",
+          "#ee30fb",
+          "#ff6118"
+        ],
+        "light": true,
+        "fontFamily": "sohne-var",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "notion.com",
+        "name": "Notion",
+        "url": "https://www.notion.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/notion.com.jpg"
+      },
+      "script": {
+        "hook": "Capture, find and automate work with AI agents",
+        "tagline": "Notion is the AI workspace where teams and agents capture context, find answers, and automate tasks.",
+        "beats": [
+          {
+            "title": "Capture knowledge",
+            "body": "Bring everything into one system of record."
+          },
+          {
+            "title": "Find answers",
+            "body": "Search across all your apps and get answers instantly, with citations."
+          },
+          {
+            "title": "Automate busywork",
+            "body": "Build Custom Agents that keep work moving 24/7."
+          },
+          {
+            "title": "AI where you work",
+            "body": "Triage feedback, resolve support tickets in Slack and automate weekly reporting."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Get Notion free at notion.com"
+      },
+      "look": {
+        "style": "minimal",
+        "bg": "#ffffff",
+        "bg2": "#f6f5f4",
+        "ink": "#191918",
+        "accents": [
+          "#1313ba",
+          "#097fe8",
+          "#f64932"
+        ],
+        "light": true,
+        "fontFamily": "NotionInter",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "supabase.com",
+        "name": "Supabase",
+        "url": "https://supabase.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/supabase.com.png"
+      },
+      "script": {
+        "hook": "Build in a weekend. Scale to millions.",
+        "tagline": "A full Postgres database with Auth, instant APIs, Realtime, Functions, Storage and Vector built in.",
+        "beats": [
+          {
+            "title": "A full Postgres database",
+            "body": "Every project is a full Postgres database, the world's most trusted relational database."
+          },
+          {
+            "title": "Auth with Row Level Security",
+            "body": "Add user sign ups and logins, securing your data with Row Level Security."
+          },
+          {
+            "title": "Instant Data APIs",
+            "body": "Instant ready-to-use REST APIs. Use one or all."
+          },
+          {
+            "title": "Open source from day one",
+            "body": "Read, contribute, self-host. You're never locked in, and always in control."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Start your project at supabase.com"
+      },
+      "look": {
+        "style": "minimal",
+        "bg": "#1c1c1c",
+        "bg2": "#111718",
+        "ink": "#ededed",
+        "accents": [
+          "#3ecf8e",
+          "#bda4ff",
+          "#8ed2af"
+        ],
+        "light": false,
+        "fontFamily": "Inter",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "framer.com",
+        "name": "Framer",
+        "url": "https://www.framer.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/framer.com.png"
+      },
+      "script": {
+        "hook": "Go from idea to launched website with a design agent",
+        "tagline": "Framer is the free website builder with a design agent, plus hosting, CMS, analytics, SEO, and AEO built in.",
+        "beats": [
+          {
+            "title": "Design with an agent",
+            "body": "A design agent native to the canvas, with every change visible, editable, and under your control."
+          },
+          {
+            "title": "Run your CMS with an agent",
+            "body": "The CMS agent sets up, organizes, and updates your CMS, keeping content and design in sync."
+          },
+          {
+            "title": "Connect your AI with MCP",
+            "body": "Work on your site from Claude, Codex, or Cursor, then review changes on the canvas before you…"
+          },
+          {
+            "title": "A full platform",
+            "body": "Hosting, CMS, analytics, SEO, AEO, collaboration, and localization, all built in."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Start free at framer.com"
+      },
+      "look": {
+        "style": "mesh",
+        "bg": "#000000",
+        "bg2": "#1f1f1f",
+        "ink": "#ffffff",
+        "accents": [
+          "#0099ff",
+          "#8856ff",
+          "#999999"
+        ],
+        "light": false,
+        "fontFamily": "Inter Display",
+        "nearestFont": "geist"
+      },
+      "by": "claude"
+    },
+    {
+      "repo": {
+        "kind": "site",
+        "owner": "resend.com",
+        "name": "Resend",
+        "url": "https://resend.com",
+        "stars": 0,
+        "forks": 0,
+        "language": "",
+        "license": "",
+        "release": "",
+        "image": "/samples/resend.com.jpg"
+      },
+      "script": {
+        "hook": "Reach humans, not spam folders",
+        "tagline": "Email for developers that delivers transactional and marketing emails at scale.",
+        "beats": [
+          {
+            "title": "Develop emails using React",
+            "body": "Create beautiful templates without dealing with table layouts and HTML."
+          },
+          {
+            "title": "Test mode",
+            "body": "Simulate events and experiment with the API without emailing real people."
+          },
+          {
+            "title": "Modular webhooks",
+            "body": "Real-time notifications when an email is delivered, opened, bounces, or clicked."
+          },
+          {
+            "title": "Faster time to inbox",
+            "body": "Send from the region closest to your users to reduce delivery latency."
+          }
+        ],
+        "code": {
+          "lang": "",
+          "text": ""
+        },
+        "cta": "Get started at resend.com"
+      },
+      "look": {
+        "style": "keynote",
+        "bg": "#000000",
+        "bg2": "#111111",
+        "ink": "#fdfdfd",
+        "accents": [
+          "#3fdb8f",
+          "#70b8ff",
+          "#eb7616"
+        ],
+        "light": false,
+        "fontFamily": "domaine",
+        "nearestFont": "instrument"
+      },
+      "by": "claude"
+    }
+  ]
+}
