@@ -27,7 +27,7 @@ Paste a link. Klix reads the project, Claude writes the script and picks the loo
 
 ## How it works
 
-| | |
+| Step | What happens |
 |---|---|
 | **01&nbsp;&nbsp;Paste** | A public GitHub repo (`owner/repo`) or any public website. |
 | **02&nbsp;&nbsp;Read** | Repos come in through the GitHub API: description, README, stars, release. Websites are read for their copy, colours, fonts and preview image. |
